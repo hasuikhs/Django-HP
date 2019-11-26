@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load make_link %}
-
+{% load static %}
 {% block body %}
 {% include 'articles/_follow.html' %}
+
 <h1>DETAIL</h1>
 <hr>
 <p>글 번호 : {{ article.pk }}</p>
 <p>글 제목 : {{ article.title }}</p>
+<img src="{{ article.image.url }}" alt="poster_url" width="300px"/>
+<p>키 : {{ article.height }}</p>
+<p>몸무게 : {{ article.weight }}</p>
 <p>글 내용 : {{ article|hashtag_link|safe }}</p>
 <p>글쓴이 : {{ article.user.username }}
 <p>글 생성 시각 : {{ article.created_at }}</p>

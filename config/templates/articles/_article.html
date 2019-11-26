@@ -15,6 +15,11 @@
                 {% endif %}
             </a><br>
             글쓴이 : {{ article.user.username }}<br>
+            {% if article.secret == 1 %}
+            <p> 비공개 </p>
+            {% else %}
+            <p>공개</p>
+            {% endif %}
         {{ article.like_users.all|length }}명이 이 글을 좋아합니다.<br>
         {{ article.created_at }}</p>
         <a href="{% url 'articles:detail' article.pk %}" class="btn btn-primary">상세보기</a>

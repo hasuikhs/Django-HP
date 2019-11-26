@@ -12,13 +12,15 @@
 -->
 
 <div class="container">
-  <form action="" method="POST">
+  <form action="" method="POST" enctype='multipart/form-data'>
     {% csrf_token %}
     {% comment %} {{ form.as_p }} {% endcomment %}
-    {% bootstrap_form form layout='inline' %}
+    {% bootstrap_form form  %}
     <div class="text-center">
       {% buttons submit='제출' reset='초기화' %}{% endbuttons %}
-    </div </form> </div> <hr>
+    </div>
+  </form> 
+   <hr>
 </div>
 {% if request.resolver_match.url_name == 'create' %}
 <a href="{% url 'articles:index' %}">[BACK]</a>

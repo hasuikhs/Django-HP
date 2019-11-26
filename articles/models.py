@@ -16,15 +16,10 @@ class Article(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    secret = models.BooleanField(default=True)    
-    height = models.FloatField()    
-    weight = models.FloatField()
-    image = ProcessedImageField(
-        processors=[Thumbnail(200, 300)],
-        format="JPEG",
-        options={'quality' : 90},
-        upload_to='articles/images'
-    )
+    secret = models.IntegerField(default=1)  
+    height = models.FloatField(blank=True,null=True)    
+    weight = models.FloatField(blank=True,null=True)
+    image = models.ImageField(blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles', blank=True)

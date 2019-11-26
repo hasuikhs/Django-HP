@@ -1,4 +1,5 @@
 import hashlib
+from IPython import embed
 from itertools import chain
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
@@ -16,12 +17,16 @@ def index(request):
 @login_required
 def create(request):
     if request.method == 'POST':
-        form = ArticleForm(request.POST)
+        form = ArticleForm(request.POST, request.FILES)        
         if form.is_valid():
-            article = form.save(commit=False)
-            article.user = request.user
-            article.save()
-
+            title = form.cleaned_data.get('title')
+            content = form.cleaned_data.get('content')
+            height = form.cleaned_data.get('height')  
+            weight = form.cleaned_data.get('weight')
+            image = form.cleaned_data.get('image')
+            secret = form.cleaned_data.get('secret')
+            user_id = request.user.id
+            article = Article.objects.create(title=title, content=content, height=height, weight=weight, image=image, secret=secret, user_id=user_id)            
             for word in article.content.split():
                 if word.startswith('#'):
                     hashtag, created = Hashtag.objects.get_or_create(content=word)
@@ -34,17 +39,35 @@ def create(request):
     return render(request, 'articles/form.html', context)
 
 def detail(request, article_pk):
+    
     article = get_object_or_404(Article, pk=article_pk)
-    person = get_object_or_404(get_user_model(), pk=article.user_id)
-    comment_form = CommentForm()
-    comments = article.comment_set.all()
-    context = {
-        'article' : article,
-        'comment_form' : comment_form,
-        'comments' : comments,
-        'person' : person,
-    }
-    return render(request, 'articles/detail.html', context)
+    if article.secret == 1:
+        if request.user.is_authenticated:
+            if request.user == article.user:
+                person = get_object_or_404(get_user_model(), pk=article.user_id)
+                comment_form = CommentForm()
+                comments = article.comment_set.all()
+        
+                context = {
+                    'article' : article,
+                    'comment_form' : comment_form,
+                    'comments' : comments,
+                    'person' : person,
+                }
+                return render(request, 'articles/detail.html', context)
+        return redirect('articles:index')
+    else:
+        person = get_object_or_404(get_user_model(), pk=article.user_id)
+        comment_form = CommentForm()
+        comments = article.comment_set.all()
+        
+        context = {
+            'article' : article,
+            'comment_form' : comment_form,
+            'comments' : comments,
+            'person' : person,
+        }
+        return render(request, 'articles/detail.html', context)
 
 @require_POST
 def delete(request, article_pk):

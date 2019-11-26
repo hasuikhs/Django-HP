@@ -28,13 +28,41 @@ class ArticleForm(forms.ModelForm):
         widget=forms.TextInput(
             attrs={
                 'class' : 'weight',
-                'placeholder' : '입력...'
+                'placeholder' : '몸무게를 입력해주세요.'
             }
         )
     )
+    height = forms.FloatField(
+        label='신장',
+        widget=forms.TextInput(
+            attrs={
+                'class' : 'height',
+                'placeholder' : '키를 입력해주세요.'
+            }
+        )
+    )
+    image = forms.ImageField(
+        label='니몸사진',
+        widget=forms.FileInput(
+            attrs={
+                'class' : 'image',
+            }
+        )
+    )
+    secret = forms.IntegerField(
+        label='비공개를 희망하시면 1이외의 값을 입력하여 주세요.',
+        widget=forms.TextInput(
+          attrs={
+            'class' : 'secret'
+          }
+        )
+            
+    )
+    
+    
     class Meta:
-        model = Article
-        fields = ('title', 'content',)
+      model = Article
+      fields = ('title', 'content', 'weight', 'height', 'image',)
 
 
 class CommentForm(forms.ModelForm):
