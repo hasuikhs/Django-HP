@@ -7,10 +7,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import get_user_model
 from .models import Article, Comment, Hashtag
 from .forms import ArticleForm, CommentForm
+from django.core.paginator import Paginator
 
 # Create your views here.
 def index(request):
     articles = Article.objects.all()[::-1]
+    paginator = Paginator(articles, 8)
+    page = request.GET.get('page')
+    articles = paginator.get_page(page)
     context = {'articles' : articles}
     return render(request, 'articles/index.html', context)
 
@@ -29,7 +33,7 @@ def create(request):
             article = Article.objects.create(title=title, content=content, height=height, weight=weight, image=image, yes_no_required=yes_no_required , user_id=user_id)            
             for word in article.content.split():
                 if word.startswith('#'):
-                    hashtag, created = Hashtag.objects.get_or_create(content=word)
+                    hashtag = Hashtag.objects.get_or_create(content=word)
                     article.hashtags.add(hashtag)
 
         return redirect('articles:detail', article.pk)
@@ -92,7 +96,7 @@ def update(request, article_pk):
                 article.hashtags.clear()
                 for word in article.content.split():
                     if word.startswith('#'):
-                        hashtag, created = Hashtag.objects.get_or_create(content=word)
+                        hashtag = Hashtag.objects.get_or_create(content=word)
                         article.hashtags.add(hashtag)
 
                 return redirect('articles:detail', article.pk)

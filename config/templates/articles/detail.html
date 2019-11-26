@@ -1,29 +1,57 @@
 {% extends 'base.html' %}
+{% load bootstrap4 %}
 {% load make_link %}
 {% load static %}
 {% block body %}
-{% include 'articles/_follow.html' %}
 
-<h1>DETAIL</h1>
+<h1>글 제목 : {{ article.title }} </h1>
 <hr>
-<p>글 번호 : {{ article.pk }}</p>
-<p>글 제목 : {{ article.title }}</p>
-<img src="{{ article.image.url }}" alt="poster_url" width="300px"/>
-<p>키 : {{ article.height }}</p>
-<p>몸무게 : {{ article.weight }}</p>
-<p>글 내용 : {{ article|hashtag_link|safe }}</p>
-<p>글쓴이 : {{ article.user.username }}
-<p>글 생성 시각 : {{ article.created_at }}</p>
-<p>글 수정 시각 : {{ article.updated_at }}</p>
+
+
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>글번호</th>
+        <th>글쓴이</th>
+        <th>작성시각</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ article.pk }}</td>
+        <td> {{ article.user.username }}</td>
+        <td>{{ article.created_at }}</td>
+      </tr>
+    </tbody>
+  </table>
+<p style="text-align:center;">
+<img src="{{ article.image.url }}" class="rounded" alt="poster_url" width="300px"/>
+</p>
+<table class="table table-hover">
+    <thead>
+      <tr>
+        <th>키</th>
+        <th>몸무게</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ article.height }}</td>
+        <td> {{ article.weight }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+<p>각오 한마디 : {{ article|hashtag_link|safe }}</p>
 <hr>
-<a href="{% url 'articles:index' %}">[BACK]</a>
+<a href="{% url 'articles:index' %}" class="btn btn-info" role="button">BACK</a>
 
 {% if request.user == article.user %}
-<a href="{% url 'articles:update' article.pk %}">[EDIT]</a>
+<a href="{% url 'articles:update' article.pk %}" class="btn btn-info">EDIT</a>
 <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline;"
     onclick="return confirm('진짜 삭제...?')">
     {% csrf_token %}
-    <input type="submit" value="DELETE">
+    <input type="submit" class="btn btn-danger" value="DELETE">
 </form>
 {% endif %}
 
@@ -32,10 +60,8 @@
 <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
     {% csrf_token %}
     {{ comment_form }}
-    <input type="submit" value="댓글 작성">
+    <input type="submit" class="btn btn-info" value="댓글 작성">
 </form>
-{% else %}
-<a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인]</a>
 {% endif %}
 <hr>
 <p><b>댓글 목록({{ comments|length }}개)</b>
