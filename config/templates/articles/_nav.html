@@ -1,9 +1,16 @@
 {% load gravatar %}
 
+<style>
+  #sibal{
+    background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;
+    
+  }
+</style>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     
     <a class="navbar-brand" href="{% url 'articles:index' %}">
-    <img class="rounded-circle mr-2" src="https://s.gravatar.com/avatar/{{ user.email|makemd5 }}?s=80&d=mp" alt="">
+    <img class="rounded-circle mr-2" src="https://s.gravatar.com/avatar/{{ user.email|makemd5 }}?s=80&d=mp" alt="" style="width:50px;height:50px">
     Hello, {{ user.username }}
     </a>
 
@@ -11,30 +18,30 @@
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    <div class="collapse navbar-collapse" id="navbarNav" style="text-align:right;"> 
+        <ul class="navbar-nav" style="display: inline-block; width:100%;">
         {% if user.is_authenticated %}
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'articles:list' %}" role="button">팔로워 글보기</a>
+            <li class="nav-item active sibal" style="display: inline;" >
+                <a class="btn btn-secondary" href="{% url 'articles:list' %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">팔로워 글보기</a>
             </li>
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'articles:explore' %}" role="button">전부보기</a>
+            <li class="nav-item active" style="display: inline;">
+                <a class="btn btn-secondary" href="{% url 'articles:explore' %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">전부보기</a>
             </li>
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'accounts:logout' %}" role="button">로그아웃</a>
+            <li class="nav-item active" style="display: inline;">
+                <a class="btn btn-secondary" href="{% url 'accounts:logout' %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">로그아웃</a>
             </li>
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'accounts:profile' user.username %}" role="button">마이페이지</a>
+            <li class="nav-item active" style="display: inline;">
+                <a class="btn btn-secondary" href="{% url 'accounts:profile' user.username %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">마이페이지</a>
             </li>
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'accounts:update' %}" role="button">정보수정</a>
+            <li class="nav-item active" style="display: inline;">
+                <a class="btn btn-secondary" href="{% url 'accounts:update' %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">정보수정</a>
             </li>
         {% else %}
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'accounts:login' %}" role="button">로그인</a>
+            <li class="nav-item active" style="display: inline;">
+                <a class="btn btn-secondary" href="{% url 'accounts:login' %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">로그인</a>
             </li>
-            <li class="nav-item active">
-                <a class="btn btn-secondary" href="{% url 'accounts:signup' %}" role="button">회원가입</span></a>
+            <li class="nav-item active" style="display: inline;">
+                <a class="btn btn-secondary" href="{% url 'accounts:signup' %}" role="button"style="background-color:transparent !important;background-image: none !important;border-color: transparent;border: none;color: #FFFFFF;">회원가입</span></a>
             </li>
         {% endif %}
 

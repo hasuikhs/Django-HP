@@ -8,14 +8,14 @@
                 {% comment %}사용자가 좋아요 안누른 상태 (빈하트){% endcomment %}
                 {% if request.user in article.like_users.all %}
                 {% comment %} python list in {% endcomment %}
-                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-thumbs-up"></i>
                 {% comment %} 누른 상태 (꽉찬 하트) {% endcomment %}
                 {% else %}
-                    <i class="far fa-heart"></i>
+                    <i class="far fa-thumbs-up"></i>
                 {% endif %}
             </a><br>
             글쓴이 : {{ article.user.username }}<br>
-            {% if article.secret == 1 %}
+            {% if article.yes_no_required == 1 %}
             <p> 비공개 </p>
             {% else %}
             <p>공개</p>

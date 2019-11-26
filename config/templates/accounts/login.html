@@ -18,6 +18,6 @@
     {% bootstrap_form form %}
     {% buttons submit='로그인' reset='초기화' %}
     {% endbuttons %}
-    <a href="{% provider_login_url 'kakao' %}" class="btn btn-warning">카카오 로그인</a>
+    {% comment %} <a href="{% provider_login_url 'kakao' %}" class="btn btn-warning">카카오 로그인</a> {% endcomment %}
 </form>
 {% endblock %}

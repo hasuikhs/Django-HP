@@ -15,7 +15,7 @@
     
 </head>
 
-<body>
+<body style="">
     {% include 'articles/_nav.html'%}
     <div class="container">
 
@@ -27,8 +27,7 @@
     <!-- Bootstrap JS-->
     {% bootstrap_javascript jquery='full' %}
 </body>
-<footer class="py-5 bg-dark" style="position : absolute; bottom : 0; width:100%; height:50px; display:inline;">
+{% comment %} <footer class="py-1 bg-dark" style="position:fixed;bottom:0;width:100%;">
     {% include 'accounts/_foot.html'%}
-    </div>
-</footer>
+</footer> {% endcomment %}
 </html>
