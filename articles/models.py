@@ -3,6 +3,12 @@ from django.conf import settings
 from imagekit.models import ProcessedImageField
 from imagekit.processors import Thumbnail
 
+CHOICES = (
+    (1, "비공개"),
+    (0, "공개"),    
+)
+
+
 # Create your models here.
 class Hashtag(models.Model):
     content = models.TextField(unique=True)
@@ -15,8 +21,7 @@ class Article(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    secret = models.IntegerField(default=1)  
+    updated_at = models.DateTimeField(auto_now=True)     
     height = models.FloatField(blank=True,null=True)    
     weight = models.FloatField(blank=True,null=True)
     image = models.ImageField(blank=True)
@@ -25,6 +30,7 @@ class Article(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles', blank=True)
     hashtags = models.ManyToManyField(Hashtag, blank=True)
 
+    yes_no_required = models.NullBooleanField(choices = CHOICES)
     # 객체 표시 형식 수정
     def __str__(self):
         return f'[{self.pk}] {self.title}'

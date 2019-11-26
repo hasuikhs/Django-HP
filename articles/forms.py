@@ -48,21 +48,12 @@ class ArticleForm(forms.ModelForm):
                 'class' : 'image',
             }
         )
-    )
-    secret = forms.IntegerField(
-        label='비공개를 희망하시면 1이외의 값을 입력하여 주세요.',
-        widget=forms.TextInput(
-          attrs={
-            'class' : 'secret'
-          }
-        )
-            
-    )
+    )   
     
     
     class Meta:
       model = Article
-      fields = ('title', 'content', 'weight', 'height', 'image',)
+      fields = ('title', 'content', 'weight', 'height', 'image','yes_no_required')
 
 
 class CommentForm(forms.ModelForm):

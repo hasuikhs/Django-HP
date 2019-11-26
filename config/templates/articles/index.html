@@ -1,13 +1,39 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1 class="text-center">Articles</h1>
-<a href="{% url 'articles:create' %}">[NEW]</a>
+<h1 class="text-center">HelpFriends</h1>
+<a href="{% url 'articles:create' %}" class="btn btn-info">각오 다지기</a>
 <hr>
+
 <div class="row">
     {% for article in articles %}
         <!-- 모듈화 시켜둔 article 템플릿 가져오기 -->
         {% include 'articles/_article.html' %}
     {% endfor %}
 </div>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <!-- 이전 페이지가 있을 경우 -->
+    {% if articles.has_previous %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'articles:index' %}?page={{ articles.previous_page_number }}" tabindex="-1" aria-disabled="true">◀</a>
+    </li>
+    {% endif %}
+
+    <!-- 페이지 버튼 -->
+    {% for num in articles.paginator.page_range %}
+    <li class="page-item {% if num == articles.number %}active{% endif %}">
+      <a class="page-link" href="{% url 'articles:index' %}?page={{ num }}">{{ num }}</a>
+    </li>
+    {% endfor %}
+
+    <!-- 다음 페이지 있으면 Next 버튼 출력 -->
+    {% if articles.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="{% url 'articles:index' %}?page={{ articles.next_page_number }}">▶</a>
+    </li>
+    {% endif %}
+  </ul>
+</nav>
 {% endblock  %}
