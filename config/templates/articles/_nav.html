@@ -5,9 +5,9 @@
     
     <a class="navbar-brand" href="{% url 'articles:index' %}">
     <img class="rounded-circle mr-2" src="https://s.gravatar.com/avatar/{{ user.email|makemd5 }}?s=80&d=mp" alt="" style="width:50px;height:50px">
-    {% if user.username == null %}
-    어서오세요, {{ user.username }}님
-    {% else %}
+    {% if user.username != null %}
+    어서오세요 {{ user.username }}님
+    {% elif user.username == null %}
     헬프렌즈에 오신것을 환영합니다.
     {% endif %}
     </a>

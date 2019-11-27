@@ -21,9 +21,11 @@
             <p>공개</p>
             {% endif %}
             {% if article.like_users.all|length == 0 %}
-            <p> {{ article.user.username }}님을 응원해주세요!</p>
+            <p> {{ article.user.username }}님을
+            <p> 응원해주세요!</p>
             {% else %}
-            <p>{{article.user.username }}님을 {{ article.like_users.all|length }}명이 응원해요!</p>
+            <p>{{article.user.username }}님을 </p>
+            <p>{{ article.like_users.all|length }}명이 응원해요!</p>
             {% endif %}
         {{ article.created_at }}</p>
         <a href="{% url 'articles:detail' article.pk %}" class="btn btn-primary">상세보기</a>
