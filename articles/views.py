@@ -42,6 +42,7 @@ def create(request):
     context = {'form':form}
     return render(request, 'articles/form.html', context)
 
+@login_required
 def detail(request, article_pk):
     
     article = get_object_or_404(Article, pk=article_pk)

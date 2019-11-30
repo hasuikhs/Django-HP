@@ -42,7 +42,7 @@ class ArticleForm(forms.ModelForm):
         )
     )
     image = forms.ImageField(
-        label='사진',
+        label='성과',
         widget=forms.FileInput(
             attrs={
                 'class' : 'image',
